@@ -1,0 +1,31 @@
+@model IEnumerable<EventBookingWeb.Models.Venue>
+
+<h2>Venue Management</h2>
+<a class="btn btn-primary" href="/Venue/Create">Add Venue</a>
+
+<table class="table mt-3">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Location</th>
+            <th>Capacity</th>
+            <th>Available</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var v in Model)
+        {
+            <tr>
+                <td>@v.VenueName</td>
+                <td>@v.Location</td>
+                <td>@v.Capacity</td>
+                <td>@(v.IsAvailable ? "Yes" : "No")</td>
+                <td>
+                    <a class="btn btn-sm btn-warning" href="/Venue/Edit/@v.VenueId">Edit</a>
+                    <a class="btn btn-sm btn-danger" href="/Venue/Delete/@v.VenueId">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

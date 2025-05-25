@@ -1,0 +1,53 @@
+@model EventBookingWeb.Models.Booking
+@{
+    var venues = ViewBag.Venues as List<EventBookingWeb.Models.Venue>;
+    var users = ViewBag.Users as List<EventBookingWeb.Models.User>;
+}
+
+<h2>Book an Event</h2>
+
+<form asp-action="Create" method="post">
+    <div class="form-group">
+        <label>User</label>
+        <select name="UserId" class="form-control">
+            @foreach (var user in users)
+            {
+                <option value="@user.UserId">@user.Name</option>
+            }
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label>Venue</label>
+        <select name="VenueId" class="form-control">
+            @foreach (var venue in venues)
+            {
+                <option value="@venue.VenueId">@venue.VenueName</option>
+            }
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label>Event Name</label>
+        <input type="text" name="EventName" class="form-control" required />
+    </div>
+
+    <div class="form-group">
+        <label>Date</label>
+        <input type="date" name="Date" class="form-control" required />
+    </div>
+
+    <div class="form-group">
+        <label>Start Time</label>
+        <input type="time" name="StartTime" class="form-control" required />
+    </div>
+
+    <div class="form-group">
+        <label>End Time</label>
+        <input type="time" name="EndTime" class="form-control" required />
+    </div>
+
+    <button type="submit" class="btn btn-success">Submit Booking</button>
+</form>
+
+<a href="/Booking">← Back to List</a>

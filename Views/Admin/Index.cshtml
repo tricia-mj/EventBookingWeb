@@ -1,0 +1,41 @@
+@model IEnumerable<EventBookingWeb.Models.Booking>
+
+<h2>Manage Bookings (Admin)</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Event</th>
+            <th>User</th>
+            <th>Venue</th>
+            <th>Date</th>
+            <th>Time</th>
+            <th>Status</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var b in Model)
+        {
+            <tr>
+                <td>@b.EventName</td>
+                <td>@b.User?.Name</td>
+                <td>@b.Venue?.VenueName</td>
+                <td>@b.Date.ToShortDateString()</td>
+                <td>@b.StartTime - @b.EndTime</td>
+                <td>@b.Status</td>
+                <td>
+                    @if (b.Status == "pending")
+                    {
+                        <a class="btn btn-success btn-sm" href="/Admin/Approve/@b.BookingId">Approve</a>
+                        <a class="btn btn-danger btn-sm" href="/Admin/Reject/@b.BookingId">Reject</a>
+                    }
+                    else
+                    {
+                        <span>N/A</span>
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

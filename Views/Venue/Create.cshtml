@@ -1,0 +1,20 @@
+@model EventBookingWeb.Models.Venue
+
+<h2>Add New Venue</h2>
+
+<form asp-action="Create" method="post">
+    <label>Name</label>
+    <input asp-for="VenueName" class="form-control" />
+
+    <label>Location</label>
+    <input asp-for="Location" class="form-control" />
+
+    <label>Capacity</label>
+    <input asp-for="Capacity" type="number" class="form-control" />
+
+    <label>Available?</label>
+    <input asp-for="IsAvailable" type="checkbox" />
+
+    <br />
+    <button type="submit" class="btn btn-success">Add</button>
+</form>

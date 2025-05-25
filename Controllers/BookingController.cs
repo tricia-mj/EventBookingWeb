@@ -1,9 +1,12 @@
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
 using EventBookingWeb.Models;
 using Microsoft.EntityFrameworkCore;
+using System.Security.Claims;
 
 namespace EventBookingWeb.Controllers
 {
+    [Authorize(Roles = "user")]
     public class BookingController : Controller
     {
         private readonly AppDbContext _context;
@@ -13,30 +16,29 @@ namespace EventBookingWeb.Controllers
             _context = context;
         }
 
-        // Display all bookings
         public async Task<IActionResult> Index()
         {
+            var userId = int.Parse(User.FindFirst("UserId").Value);
+
             var bookings = await _context.Bookings
-                .Include(b => b.User)
                 .Include(b => b.Venue)
+                .Where(b => b.UserId == userId)
                 .ToListAsync();
 
             return View(bookings);
         }
 
-        // Show booking form
         public IActionResult Create()
         {
             ViewBag.Venues = _context.Venues.Where(v => v.IsAvailable).ToList();
-            ViewBag.Users = _context.Users.ToList(); // temporary until login system
             return View();
         }
 
-        // Submit booking form
         [HttpPost]
         public async Task<IActionResult> Create(Booking booking)
         {
-            // Check for conflict
+            booking.UserId = int.Parse(User.FindFirst("UserId").Value);
+
             bool hasConflict = _context.Bookings.Any(b =>
                 b.VenueId == booking.VenueId &&
                 b.Date == booking.Date &&
@@ -48,13 +50,13 @@ namespace EventBookingWeb.Controllers
             {
                 ModelState.AddModelError("", "This venue is already booked at that time.");
                 ViewBag.Venues = _context.Venues.ToList();
-                ViewBag.Users = _context.Users.ToList();
                 return View(booking);
             }
 
             booking.Status = "pending";
             _context.Add(booking);
             await _context.SaveChangesAsync();
+
             return RedirectToAction("Index");
         }
     }

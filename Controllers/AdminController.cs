@@ -1,13 +1,15 @@
 using Microsoft.AspNetCore.Mvc;
 using EventBookingWeb.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authorization;
 
 namespace EventBookingWeb.Controllers
 {
+    [Authorize(Roles = "admin")]
     public class AdminController : Controller
     {
         private readonly AppDbContext _context;
-
+        
         public AdminController(AppDbContext context)
         {
             _context = context;

@@ -5,13 +5,13 @@ namespace EventBookingWeb.Models
         public int BookingId { get; set; }
         public int UserId { get; set; }
         public int VenueId { get; set; }
-        public string EventName { get; set; }
+        public required string EventName { get; set; }
         public DateTime Date { get; set; }
         public TimeSpan StartTime { get; set; }
         public TimeSpan EndTime { get; set; }
-        public string Status { get; set; } // pending, approved, rejected
+        public required string Status { get; set; } // pending, approved, rejected
 
-        public User User { get; set; }
-        public Venue Venue { get; set; }
+        public User? User { get; set; }
+        public Venue? Venue { get; set; }
     }
 }

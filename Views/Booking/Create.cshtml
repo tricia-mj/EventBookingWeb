@@ -1,53 +1,52 @@
 @model EventBookingWeb.Models.Booking
 @{
     var venues = ViewBag.Venues as List<EventBookingWeb.Models.Venue>;
-    var users = ViewBag.Users as List<EventBookingWeb.Models.User>;
+    ViewData["Title"] = "Create Booking";
 }
 
-<h2>Book an Event</h2>
+<div class="container mt-4" style="max-width: 600px;">
+    <h2>Book an Event</h2>
 
-<form asp-action="Create" method="post">
-    <div class="form-group">
-        <label>User</label>
-        <select name="UserId" class="form-control">
-            @foreach (var user in users)
-            {
-                <option value="@user.UserId">@user.Name</option>
-            }
-        </select>
-    </div>
+    @if (ViewData.ModelState.ErrorCount > 0)
+    {
+        <div class="alert alert-danger">Please fix the errors below.</div>
+    }
 
-    <div class="form-group">
-        <label>Venue</label>
-        <select name="VenueId" class="form-control">
-            @foreach (var venue in venues)
-            {
-                <option value="@venue.VenueId">@venue.VenueName</option>
-            }
-        </select>
-    </div>
+    <form asp-action="Create" method="post">
+        <div class="form-group mb-3">
+            <label>Venue</label>
+            <select name="VenueId" class="form-control" required>
+                <option value="">-- Select Venue --</option>
+                @foreach (var venue in venues)
+                {
+                    <option value="@venue.VenueId">@venue.VenueName (@venue.Location)</option>
+                }
+            </select>
+        </div>
 
-    <div class="form-group">
-        <label>Event Name</label>
-        <input type="text" name="EventName" class="form-control" required />
-    </div>
+        <div class="form-group mb-3">
+            <label>Event Name</label>
+            <input type="text" name="EventName" class="form-control" required />
+        </div>
 
-    <div class="form-group">
-        <label>Date</label>
-        <input type="date" name="Date" class="form-control" required />
-    </div>
+        <div class="form-group mb-3">
+            <label>Date</label>
+            <input type="date" name="Date" class="form-control" required />
+        </div>
 
-    <div class="form-group">
-        <label>Start Time</label>
-        <input type="time" name="StartTime" class="form-control" required />
-    </div>
+        <div class="form-group mb-4">
+            <label>Start Time</label>
+            <input type="time" name="StartTime" class="form-control" required />
+        </div>
 
-    <div class="form-group">
-        <label>End Time</label>
-        <input type="time" name="EndTime" class="form-control" required />
-    </div>
+        <div class="form-group mb-4">
+            <label>End Time</label>
+            <input type="time" name="EndTime" class="form-control" required />
+        </div>
 
-    <button type="submit" class="btn btn-success">Submit Booking</button>
-</form>
-
-<a href="/Booking">← Back to List</a>
+        <div class="d-flex justify-content-between">
+            <a class="btn btn-secondary" href="/Booking">← Back to List</a>
+            <button type="submit" class="btn btn-success">Submit Booking</button>
+        </div>
+    </form>
+</div>

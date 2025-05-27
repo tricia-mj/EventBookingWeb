@@ -1,6 +1,14 @@
 @model IEnumerable<EventBookingWeb.Models.Booking>
 
-<h2>All Bookings</h2>
+<h2>Bookings</h2>
+
+@if (TempData["Forecast"] != null)
+{
+    <div class="alert alert-info">
+        <strong>Weather Forecast:</strong> @TempData["Forecast"]
+    </div>
+}
+
 
 <table class="table">
     <thead>
@@ -9,7 +17,6 @@
             <th>Date</th>
             <th>Time</th>
             <th>Venue</th>
-            <th>User</th>
             <th>Status</th>
         </tr>
     </thead>
@@ -18,10 +25,9 @@
         {
             <tr>
                 <td>@b.EventName</td>
-                <td>@b.Date.ToShortDateString()</td>
+                <td>@b.Date.ToString("dd/MM/yyyy")</td>
                 <td>@b.StartTime - @b.EndTime</td>
                 <td>@b.Venue?.VenueName</td>
-                <td>@b.User?.Name</td>
                 <td>@b.Status</td>
             </tr>
         }

@@ -1,9 +1,9 @@
 @model IEnumerable<EventBookingWeb.Models.Venue>
 
 <h2>Venue Management</h2>
-<a class="btn btn-primary" href="/Venue/Create">Add Venue</a>
+<a class="btn btn-success mb-3" href="/Venue/Create">Add Venue</a>
 
-<table class="table mt-3">
+<table class="table">
     <thead>
         <tr>
             <th>Name</th>
@@ -22,8 +22,8 @@
                 <td>@v.Capacity</td>
                 <td>@(v.IsAvailable ? "Yes" : "No")</td>
                 <td>
-                    <a class="btn btn-sm btn-warning" href="/Venue/Edit/@v.VenueId">Edit</a>
-                    <a class="btn btn-sm btn-danger" href="/Venue/Delete/@v.VenueId">Delete</a>
+                    <a class="btn btn-warning btn-sm" href="/Venue/Edit/@v.VenueId">Edit</a>
+                    <a class="btn btn-danger btn-sm" href="/Venue/Delete/@v.VenueId">Delete</a>
                 </td>
             </tr>
         }

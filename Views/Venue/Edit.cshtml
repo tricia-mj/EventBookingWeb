@@ -1,8 +1,10 @@
 @model EventBookingWeb.Models.Venue
 
-<h2>Add New Venue</h2>
+<h2>Edit Venue</h2>
 
-<form asp-action="Create" method="post">
+<form asp-action="Edit" method="post">
+    <input type="hidden" asp-for="VenueId" />
+
     <div class="form-group mb-3">
         <label>Name</label>
         <input asp-for="VenueName" class="form-control" />
@@ -23,6 +25,6 @@
         <input asp-for="IsAvailable" type="checkbox" />
     </div>
 
-    <button type="submit" class="btn btn-success">Add Venue</button>
+    <button type="submit" class="btn btn-warning">Save Changes</button>
     <a class="btn btn-secondary" href="/Venue">Cancel</a>
 </form>
